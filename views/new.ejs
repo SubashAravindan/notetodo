@@ -5,7 +5,7 @@
 		
 		<div style="width: 30%; margin: 30px auto">
 			<h1 class="text-center">Add a new Note</h1>
-			<form action="/items" method="POST">
+			<form action="/items" method="POST" enctype="multipart/form-data">
 				  	<div class="form-group">
  					    <!-- <label for="exampleFormControlSelect1">Example select</label> -->
 					    <select class="form-control-lg" id="type" name="type">
@@ -13,13 +13,17 @@
 					      <option value="Note"  selected>Note</option>
 					    </select>
 					</div>
+				<div class="form-group" id="noteOnly2">
+				    <label for="file">Image </label>
+				    <input type="file" class="form-control-file" id="file" name="image">
+				</div>
 				<div class="form-group">
 					<input type="text" placeholder="Title" name="title" class="form-control" required="true">
 				</div>
 				<div class="form-group">
 					<input type="text" placeholder="Label" name="label" class="form-control">
 				</div>
-				<div class="form-group" id="contentBox">
+				<div class="form-group" id="noteOnly1">
 					<textarea class="form-control" name="content" rows="3"></textarea>
 				</div>	
 				Priority :
@@ -41,8 +45,8 @@
 					    High
 					  </label>
 				</div>			
-				<div class="form-group">
-					
+				<div class="form-group" enctype="multipart/form-data">
+
 					<button class="btn btn-lg btn-primary btn-block">Submit!</button>
 				</div>	
 			</form>	
@@ -57,10 +61,12 @@
 <script type="text/javascript">
 	$("#type").click(()=>{
 		if($('#type option:selected').val()==="Todo List"){
-			$("#contentBox").fadeOut();
+			$("#noteOnly1").fadeOut();
+			$("#noteOnly2").fadeOut();
 		}
 		else{
-			$("#contentBox").fadeIn();
+			$("#noteOnly1").fadeIn();
+			$("#noteOnly2").fadeIn();
 		}
 	})
 

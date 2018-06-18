@@ -1,0 +1,56 @@
+<% include partials/header.ejs %>
+
+<div class="container">
+	<div class="row" id="noteForm">
+		
+		<div style="width: 30%; margin: 30px auto">
+			<h1 class="text-center">Add a new Note</h1>
+			<form action="/profile" method="POST" enctype="multipart/form-data">
+				  	<div class="form-group">
+ 					    <!-- <label for="exampleFormControlSelect1">Example select</label> -->
+					    <select class="form-control-lg" id="type" name="type">
+					      <option value="Todo List">To-Do List</option>
+					      <option value="Note"  selected>Note</option>
+					    </select>
+					</div>
+				<div class="form-group">
+					<input type="file" placeholder="img" name="img" class="form-control" required="true">
+				</div>
+				<div class="form-group">
+					<input type="text" placeholder="Label" name="label" class="form-control">
+				</div>
+				<div class="form-group" id="contentBox">
+					<textarea class="form-control" name="content" rows="3"></textarea>
+				</div>	
+				Priority :
+				<div class="form-check">
+					  	<input class="form-check-input" type="radio" name="priority" id="priority1" value="1" checked>
+					  	<label class="form-check-label" for="priority1">
+					    Low
+					  	</label>
+				</div>
+				<div class="form-check">
+					  	<input class="form-check-input" type="radio" name="priority" id="priority2" value="2">
+					  	<label class="form-check-label" for="priority2">
+					    Medium
+					 	 </label>
+				</div>
+				<div class="form-check">
+					  	<input class="form-check-input" type="radio" name="priority" id="priority3" value="3">
+					  	<label class="form-check-label" for="priority3">
+					    High
+					  </label>
+				</div>			
+				<div class="form-group">
+					
+					<button class="btn btn-lg btn-primary btn-block">Submit!</button>
+				</div>	
+			</form>	
+			<a href="/items">Back</a>		
+		</div>
+	</div>
+
+</div>
+
+
+<% include partials/footer.ejs %>

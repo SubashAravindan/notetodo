@@ -40,7 +40,7 @@ connection.connect((err)=>{
 	}
 	
 })
-connection.query("CREATE TABLE IF NOT EXISTS items (item_id INT AUTO_INCREMENT PRIMARY KEY,type VARCHAR(20),label VARCHAR(100),created DATETIME,edited DATETIME,title VARCHAR(100),content VARCHAR(1000),priority int)",(err,result)=>{
+connection.query("CREATE TABLE IF NOT EXISTS items (item_id INT AUTO_INCREMENT PRIMARY KEY,image VARCHAR(200),type VARCHAR(20),label VARCHAR(100),created DATETIME,edited DATETIME,title VARCHAR(100),content VARCHAR(1000),priority int)",(err,result)=>{
 	if (err) {
 		console.log(err);
 	}
@@ -49,6 +49,7 @@ connection.query("CREATE TABLE IF NOT EXISTS items (item_id INT AUTO_INCREMENT P
 //seed
 items=[
 	{
+
 		type:"Todo List",
 		created:new Date(Date.now()),
 		edited:new Date(Date.now()),
@@ -58,6 +59,7 @@ items=[
 		content: JSON.stringify([{name:"task 1",completed:false},{name:"task 2",completed:true}])
 	},
 	{
+
 		type:"Note",
 		title:"My first note",
 		created: new Date(Date.now()),
@@ -67,6 +69,7 @@ items=[
 		content:"lorem ipsum susyta assahjaj asdgygasguda asuyasgasd asyag asbcbabca asutuquyge acsbcjabca asdygasgd"
 	},
 	{
+
 		type:"Todo List",
 		created:new Date(Date.now()),
 		edited:new Date(Date.now()),
@@ -78,7 +81,7 @@ items=[
 ];
 
 items.forEach((item)=>{
-	connection.query("INSERT INTO items VALUES(NULL,?,?,?,?,?,?,?)",[item.type,item.label,item.created,item.edited,item.title,item.content,item.priority],(err,result)=>{
+	connection.query("INSERT INTO items VALUES(NULL,NULL,?,?,?,?,?,?,?)",[item.type,item.label,item.created,item.edited,item.title,item.content,item.priority],(err,result)=>{
 	// connection.query("INSERT INTO items VALUES ( NULL" +","+item.type+","+item.label+",NOW(),NOW()," + item.title +","+item.content+","+item.priority+")",(err,result)=>{
 		if (err) {
 			console.log(err)

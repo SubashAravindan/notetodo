@@ -10,12 +10,12 @@
 	<% }) %>
 	</ul>
 	<div class="text-center">
-		<form method="POST" action="/items/<%=item.item_id%>?_method=PUT">
+		<form method="POST" action="/items/<%=item.item_id%>?_method=PUT" enctype="multipart/form-data">
 			<input type="text" name="dummy" id="dummy">
 			<button id="saveBtn" class="btn btn-primary">Save Changes</button>
 			<input type="submit" name="subBtn" id="subBtn">
 		</form>
-		<form action="/items/<%=item.item_id%>?_method=DELETE" method="POST" >
+		<form action="/items/<%=item.item_id%>?_method=DELETE" method="POST" enctype="multipart/form-data">
 			<button class="btn btn-danger" >Delete TO DO LIST</button>						
 		</form>			
 		<p><strong>Created : </strong><%=item.created.toString().substring(0,24)%></p>

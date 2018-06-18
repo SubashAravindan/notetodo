@@ -1,14 +1,19 @@
-var express  = require("express"),
-        app  = express(),
- bodyParser  = require("body-parser"),
-      mysql  = require("mysql"),
- connection  = require("./sql/connect.js"),
- methodOverride   = require("method-override"),
-expressSanitizer = require("express-sanitizer");
+    var express  = require("express"),
+            app  = express(),
+     // bodyParser  = require("body-parser"),
+          mysql  = require("mysql"),
+     connection  = require("./sql/connect.js"),
+methodOverride   = require("method-override"),
+expressSanitizer = require("express-sanitizer"),
+         multer  = require('multer'),
+          upload = multer({ dest: 'uploads/' });
+
+
 app.set("view engine","ejs");
 
-app.use(bodyParser.urlencoded({extended:true}));
+// app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static(__dirname+"/public"));
+app.use(express.static(__dirname+"/uploads"));
 app.use(expressSanitizer());
 app.use(methodOverride("_method"));
 
@@ -46,9 +51,18 @@ app.get("/items/new",(req,res)=>{
 //CREATE ROUTE
 //================================
 
-app.post("/items",(req,res)=>{
-	var qry="INSERT INTO items VALUES( NULL,?,?,?,?,?,?,?)";
-	connection.query(qry,[req.body.type,req.body.label,new Date(Date.now()),new Date(Date.now()),req.body.title,req.body.type==="Note"?req.body.content:[],req.body.priority],(err,result)=>{
+app.post("/items",upload.single('image'),(req,res)=>{
+	console.log(req.file);
+	var fn;
+	if (req.file) {
+		if (!(req.file.mimetype==="image/jpeg"||req.file.mimetype==="image/jpg"||req.file.mimetype==="image/png")) {
+			alert("file is not image");
+			res.redirect("/items/new");
+		}
+		fn=req.file.filename;
+	} 
+	var qry="INSERT INTO items VALUES( NULL,?,?,?,?,?,?,?,?)";
+	connection.query(qry,[fn,req.body.type,req.body.label,new Date(Date.now()),new Date(Date.now()),req.body.title,req.body.type==="Note"?req.body.content:[],req.body.priority],(err,result)=>{
 		if(err){
 			console.log(err)
 		}
@@ -58,7 +72,19 @@ app.post("/items",(req,res)=>{
 		}
 		
 	})
+	console.log(req.file);
 })
+
+// app.post('/profile', upload.single('img'), function (req, res) {
+// 	console.log(req.body);
+// 	console.log("===============");
+// 	console.log(req.file);
+  
+// })
+
+// app.get("/profile",(req,res)=>{
+// 	res.render("profile",{css:null});
+// })
 
 //SHOW ROUTE
 //================================
@@ -104,7 +130,7 @@ app.get("/items/:id/edit",(req,res)=>{
 //UPDATE ROUTE
 //================================
 
-app.put("/items/:id",(req,res)=>{
+app.put("/items/:id",upload.single('image'),(req,res)=>{
 
 	qry="SELECT type FROM items WHERE item_id= ?";
 	connection.query(qry,[req.params.id],(err,result1)=>{
@@ -113,8 +139,17 @@ app.put("/items/:id",(req,res)=>{
 		} else  {
 			//EDIT NOTE
 			if (result1[0].type==="Note") {
-				qry="UPDATE items SET title = ? ,content = ?, priority = ?, label = ?, edited = ? WHERE item_id = ?";
-				connection.query(qry,[req.body.title,req.body.content,req.body.priority,req.body.label,new Date(Date.now()),req.params.id],(err,result)=>{
+
+				var fn;
+				if (req.file) {
+					if (!(req.file.mimetype==="image/jpeg"||req.file.mimetype==="image/jpg"||req.file.mimetype==="image/png")) {
+						alert("file is not image");
+						res.redirect("/items/new");
+					}
+					fn=req.file.filename;
+				} 
+				qry="UPDATE items SET image = ?, title = ? ,content = ?, priority = ?, label = ?, edited = ? WHERE item_id = ?";
+				connection.query(qry,[fn,req.body.title,req.body.content,req.body.priority,req.body.label,new Date(Date.now()),req.params.id],(err,result)=>{
 					if (err) {
 						console.log(err);
 					} else {
@@ -141,7 +176,7 @@ app.put("/items/:id",(req,res)=>{
 //DELETE ROUTE
 //================================
 
-app.delete("/items/:id",(req,res)=>{
+app.delete("/items/:id",upload.array(),(req,res)=>{
 	qry="DELETE FROM items WHERE item_id = ?";
 	connection.query(qry,[req.params.id],(err,result)=>{
 		if (err) {

@@ -5,9 +5,13 @@
 		
 		<div style="width: 30%; margin: 30px auto">
 			<h1 class="text-center">Edit the note <%=item.title%></h1>
-			<form action="/items/<%=item.item_id%>?_method=PUT" method="POST">
+			<form action="/items/<%=item.item_id%>?_method=PUT" method="POST" enctype="multipart/form-data">
 				<div class="form-group">
 					<input type="text" placeholder="Title" name="title" class="form-control" required="true" value="<%=item.title%>">
+				</div>
+				<div class="form-group" class="noteOnly">
+				    <label for="file">Image </label>
+				    <input type="file" class="form-control-file" id="file" name="image">
 				</div>
 				<div class="form-group">
 					<input type="text" placeholder="Label" name="label" class="form-control" value="<%=item.label%>">
@@ -34,7 +38,7 @@
 					    High
 					  </label>
 				</div>			
-				<div class="form-group">
+				<div class="form-group" enctype="multipart/form-data">
 					
 					<button class="btn btn-lg btn-primary btn-block">Submit!</button>
 				</div>	
