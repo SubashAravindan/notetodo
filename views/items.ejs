@@ -1,0 +1,113 @@
+<% include partials/header.ejs %>
+
+
+
+
+<div class="container">
+	<div class="jumbotron">
+		<div class="container">
+			<h1>Your dashboard</h1>
+			<h4 class="text-muted">View all your To-Do lists and notes here</h4>
+		</div>
+	</div>
+	<div class="row text-center">
+		<div class="container text-center">
+			<div id="sortDiv">
+				<div class="dropdown m-1" id="viewLabelDiv">
+				  	<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				    Sort by :
+				  	</button>
+				  	<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">				
+					  <li class="list-group-item active dropdown-item">Time created</li>
+					  <li class="list-group-item dropdown-item" id="priority">Priority</li>
+					</div>	
+				</div>
+			</div>
+			<div class="dropdown m-1" id="viewLabelDiv ">
+			  	<button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			    View by Label
+			  	</button>
+			  	<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			  		<a class="dropdown-item alllabel" href="#">all</a>
+			    	<a class="dropdown-item label" href="#">unofficial</a>
+			    	<a class="dropdown-item label" href="#">official</a>
+			  	</div>
+			</div>			
+		</div>
+
+	</div>
+	<div class="row text-center itemRow">
+		<% items.forEach(function(item){ %>
+
+				<div class="col-md-4 col-sm-6 itemDisp">
+					<div class='container bg-<%=item.type==="Note"?"warning":"success" %> m-3 p-5 rounded'>
+						<h4 class="text-muted"><%=item.type%></h4>
+						<h4><%=item.title%></h4>
+						<a href="/items/<%=item.item_id%>" class="btn btn-primary">View</a>
+
+					</div>
+				</div>
+
+		<% })%>
+
+	</div>
+</div>
+
+
+<script type="text/javascript">
+	var items = <%- JSON.stringify(items)  %>;console.log(items);
+	$("#sortDiv .list-group-item ").on("click",function(){
+		if (!$(this).hasClass("active")) {
+			$("#sortDiv .list-group-item ").toggleClass("active");
+			
+			items.sort(function(a,b){
+				if ($("#priority").hasClass("active")) {
+					return b.priority-a.priority;
+				} else {
+					return a.created-b.created;
+				}
+				
+			 });
+	    	$(".col-md-4").remove();
+			dispItems();
+			console.log(items);			
+		}
+
+	})
+
+	function dispItems() {
+
+		items.forEach(function(item){
+
+			$(".itemRow").append('<div class="col-md-4 col-sm-6 itemDisp"><div class="container bg-'+(item.type==="Note"?"warning":"success")+' p-5 rounded">	<h4 class="text-muted">' + item.type+ '</h4>	<h4>'+item.title+'</h4>	<a href="/items/'+item.item_id+' " class="btn btn-primary">View</a>	<a href="" class="btn btn-danger" >Delete</a></div></div>');
+
+		})
+	}
+
+	$(".label").on("click",function(){
+		$this=$(this);
+		$(".label").removeClass("active");
+		$(".alllabel").removeClass("active");
+		$this.addClass("active");
+		items.forEach(function(item,index){
+
+
+		if (item.label!=$this.text()) {
+			$($(".itemDisp")[index]).fadeOut(1000);
+		} else {
+			$($(".itemDisp")[index]).fadeIn(1000);
+		}
+
+
+		})
+	})
+
+	$(".alllabel").click(function(){
+		$(".itemDisp").fadeIn(1000);
+		$(".label").removeClass("active");
+		$(this).addClass("active");
+	})
+
+</script>
+
+<% include partials/footer.ejs %>

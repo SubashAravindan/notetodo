@@ -1,0 +1,34 @@
+<% include partials/header.ejs %>
+
+
+<div id="container">
+	<h1><%=item.title%> <span id="addTodo"><i class="fas fa-plus-square"></i></span></h1>
+	<input type="text" placeholder="Add new Todo">
+	<ul>
+		<% JSON.parse(item.content).forEach(a=>{ %>
+		<li <%if(a.completed){%>class= "completed"<%}%>><span><i class='fas fa-trash'></i></span> <%=a.name%></li>
+	<% }) %>
+	</ul>
+	<div class="text-center">
+		<form method="POST" action="/items/<%=item.item_id%>?_method=PUT">
+			<input type="text" name="dummy" id="dummy">
+			<button id="saveBtn" class="btn btn-primary">Save Changes</button>
+			<input type="submit" name="subBtn" id="subBtn">
+		</form>
+		<form action="/items/<%=item.item_id%>?_method=DELETE" method="POST" >
+			<button class="btn btn-danger" >Delete TO DO LIST</button>						
+		</form>			
+		<p><strong>Created : </strong><%=item.created.toString().substring(0,24)%></p>
+		<p><strong>Edited : </strong><%=item.edited.toString().substring(0,24)%></p>
+	</div>
+
+</div>
+
+
+
+
+
+
+<script type="text/javascript" src="/scripts/todo.js"></script>
+
+<% include partials/footer.ejs %>

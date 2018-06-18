@@ -1,0 +1,34 @@
+<% include partials/header.ejs %>
+
+
+<div class="container">
+	<h1 class="text-center">View Note</h1>
+	<div class="container">
+		<div class="card">
+			<% if(item.image){ %>
+				<img class="card-img-top" src=".../100px180/" alt="Card image cap">
+			<% } %>
+		  
+		  <div class="card-body">
+		    <h2 class="card-title"><%=item.title%></h2>
+		    <p class="card-text"><%=item.content%></p>
+		    <p class="list-group-item"><strong>Created : </strong><%=item.created.toString()%></p>
+		    <p class="list-group-item"><strong>edited : </strong><%=item.edited.toString()%></p>
+		    <div class="list-group-item">
+			    <a href="/items/<%=item.item_id%>/edit" class="btn btn-primary">Edit</a>
+				<form action="/items/<%=item.item_id%>?_method=DELETE" method="POST" >
+					<button class="btn btn-danger" >Delete</button>						
+				</form>
+				<a href="/items" class=" btn btn-primary">All items</a>		    	
+		    </div>
+		    
+		  </div>
+		</div>		
+	</div>
+
+</div>
+
+<script type="text/javascript">
+	
+</script>
+<% include partials/footer.ejs %>
