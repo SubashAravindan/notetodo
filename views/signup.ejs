@@ -1,0 +1,44 @@
+<% include partials/header.ejs %>
+
+<div class="container">
+	<div class="row">
+		
+		<div style="width: 30%; margin: 60px auto;min-width: 300px;">
+			<a href="/login">Already have an account ? Log In!</a>
+			<h1 class="text-center">Sign up for a new account</h1>
+			<form action="/signup" method="POST" enctype="multipart/form-data" onsubmit="return validateForm()">
+				<div class="form-group">
+					<input type="text" placeholder="username" name="username" class="form-control" required="true">
+				</div>
+				<div class="form-group">
+					<input type="password" placeholder="password" name="password" class="form-control" required="true"  maxlength="12" id="password">
+				</div>
+				<div class="form-group">
+					<input type="password" placeholder="Verify Password" name="vpassword" class="form-control" required="true"  maxlength="12" id="vpassword">
+				</div>				
+				<div class="form-group">
+					
+					<button class="btn btn-lg btn-primary btn-block">Sign Up</button>
+				</div>	
+			</form>	
+	
+		</div>
+	</div>
+
+</div>
+
+
+<script type="text/javascript">
+
+	function validateForm() {
+		if ($("#password").val()!=$("#vpassword").val()) {
+			alert("passwords dont match !! Check again");
+			return false;
+		}			
+	}	
+
+</script>
+
+
+
+<% include partials/footer.ejs %>

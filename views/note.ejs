@@ -12,8 +12,9 @@
 		  <div class="card-body">
 		    <h2 class="card-title"><%=item.title%></h2>
 		    <p class="card-text"><%=item.content%></p>
-		    <p class="list-group-item"><strong>Created : </strong><%=item.created.toString()%></p>
-		    <p class="list-group-item"><strong>edited : </strong><%=item.edited.toString()%></p>
+		    <p class="list-group-item"><strong>Label : </strong><%=item.label%></p>
+		    <p class="list-group-item"><strong>Created : </strong><%=item.created.toString().substring(0,24)%></p>
+		    <p class="list-group-item"><strong>edited : </strong><%=item.edited.toString().substring(0,24)%></p>
 		    <div class="list-group-item">
 			    <a href="/items/<%=item.item_id%>/edit" class="btn btn-primary">Edit</a>
 				<form action="/items/<%=item.item_id%>?_method=DELETE" method="POST" enctype="multipart/form-data" >
@@ -21,7 +22,9 @@
 				</form>
 				<a href="/items" class=" btn btn-primary">All items</a>		    	
 		    </div>
-		    
+		    <div class="list-group-item">
+		    	<a href="/items/<%=item.item_id%>/access" class="btn btn-success btn-block">Manage access permissions</a>
+		    </div>
 		  </div>
 		</div>		
 	</div>

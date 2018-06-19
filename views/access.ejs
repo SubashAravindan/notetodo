@@ -1,0 +1,28 @@
+<% include partials/header.ejs %>
+
+<div class="container">
+	<div class="m-5">
+		<h1>Access granted to :</h1>
+		<ul class="list-group">
+			<% users.forEach(user=>{ %>
+				<li class="list-group-item"><%=user.username%><span class="float-right"><a class="text-danger" href="/items/<%=item_id%>/access/remove/<%=user.user_id%>">Remove access <i class='fas fa-trash '></i></a></span></li>
+			<% }) %>
+  		</ul>
+	</div>
+	<div class="m-5">
+		<div class="container" style="width: 50%">
+			<form action="/items/<%=item_id%>/access/add" method="POST" enctype="multipart/form-data">
+				<div class="form-group">
+					<input type="text" name="username" placeholder="username" class="form-control">			
+				</div>
+				<div class="form-group">
+					<button class="btn btn-success form-control">Grant Access</button>			
+				</div>
+			</form>
+
+		</div>
+		<a href="/items/<%=item_id%>" class="btn btn-primary">Go to item</a>
+	</div>
+</div>
+
+<% include partials/footer.ejs %>

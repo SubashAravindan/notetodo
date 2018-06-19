@@ -1,0 +1,33 @@
+<% include partials/header.ejs %>
+
+<div class="container">
+	<div class="row">
+		
+		<div style="width: 30%; margin: 60px auto; min-width: 300px">
+			<a href="/signup">Dont have an account ? Sign Up!</a>
+			<h1 class="text-center">Log in to your account</h1>
+			<form action="/login" method="POST" enctype="multipart/form-data">
+				<div class="form-group">
+					<input type="text" placeholder="username" name="username" class="form-control" required="true">
+				</div>
+				<div class="form-group">
+					<input type="password" placeholder="password" name="password" class="form-control" required="true">
+				</div>
+				
+				<div class="form-group">
+					
+					<button class="btn btn-lg btn-primary btn-block">Submit!</button>
+				</div>	
+			</form>	
+	
+		</div>
+	</div>
+
+</div>
+
+
+
+
+
+
+<% include partials/footer.ejs %>

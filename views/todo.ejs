@@ -4,7 +4,7 @@
 <div id="container">
 	<h1><%=item.title%> <span id="addTodo"><i class="fas fa-plus-square"></i></span></h1>
 	<input type="text" placeholder="Add new Todo">
-	<ul>
+	<ul id="todolist">
 		<% JSON.parse(item.content).forEach(a=>{ %>
 		<li <%if(a.completed){%>class= "completed"<%}%>><span><i class='fas fa-trash'></i></span> <%=a.name%></li>
 	<% }) %>
@@ -17,9 +17,12 @@
 		</form>
 		<form action="/items/<%=item.item_id%>?_method=DELETE" method="POST" enctype="multipart/form-data">
 			<button class="btn btn-danger" >Delete TO DO LIST</button>						
-		</form>			
+		</form>	
+
+		<p><strong>Label : </strong><%=item.label%></p>
 		<p><strong>Created : </strong><%=item.created.toString().substring(0,24)%></p>
 		<p><strong>Edited : </strong><%=item.edited.toString().substring(0,24)%></p>
+		<a href="/items/<%=item.item_id%>/access" class="btn btn-success btn-lg m-3" >Manage access permissions</a>
 	</div>
 
 </div>

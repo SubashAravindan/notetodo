@@ -46,50 +46,62 @@ connection.query("CREATE TABLE IF NOT EXISTS items (item_id INT AUTO_INCREMENT P
 	}
 })
 
-//seed
-items=[
-	{
-
-		type:"Todo List",
-		created:new Date(Date.now()),
-		edited:new Date(Date.now()),
-		priority : "2",
-		label :"official",
-		title:"To Do List 1",
-		content: JSON.stringify([{name:"task 1",completed:false},{name:"task 2",completed:true}])
-	},
-	{
-
-		type:"Note",
-		title:"My first note",
-		created: new Date(Date.now()),
-		edited: new Date(Date.now()),
-		priority : "1",
-		label :"unofficial",
-		content:"lorem ipsum susyta assahjaj asdgygasguda asuyasgasd asyag asbcbabca asutuquyge acsbcjabca asdygasgd"
-	},
-	{
-
-		type:"Todo List",
-		created:new Date(Date.now()),
-		edited:new Date(Date.now()),
-		priority : "3",
-		label :"official",
-		title:"To Do List 2",
-		content: JSON.stringify([{name:"task 1",completed:false},{name:"task 2",completed:false}])
+connection.query("CREATE TABLE IF NOT EXISTS users (user_id INT AUTO_INCREMENT PRIMARY KEY,username VARCHAR(20),password VARCHAR(300))",(err,result)=>{
+	if (err) {
+		console.log(err);
 	}
-];
-
-items.forEach((item)=>{
-	connection.query("INSERT INTO items VALUES(NULL,NULL,?,?,?,?,?,?,?)",[item.type,item.label,item.created,item.edited,item.title,item.content,item.priority],(err,result)=>{
-	// connection.query("INSERT INTO items VALUES ( NULL" +","+item.type+","+item.label+",NOW(),NOW()," + item.title +","+item.content+","+item.priority+")",(err,result)=>{
-		if (err) {
-			console.log(err)
-		}
-		else{
-
-		}
-	})
 })
+
+connection.query("CREATE TABLE IF NOT EXISTS permission_table (user_id INT, item_id INT)",(err,result)=>{
+	if (err) {
+		console.log(err);
+	}
+})
+//seed
+// items=[
+// 	{
+
+// 		type:"Todo List",
+// 		created:new Date(Date.now()),
+// 		edited:new Date(Date.now()),
+// 		priority : "2",
+// 		label :"official",
+// 		title:"To Do List 1",
+// 		content: JSON.stringify([{name:"task 1",completed:false},{name:"task 2",completed:true}])
+// 	},
+// 	{
+
+// 		type:"Note",
+// 		title:"My first note",
+// 		created: new Date(Date.now()),
+// 		edited: new Date(Date.now()),
+// 		priority : "1",
+// 		label :"unofficial",
+// 		content:"lorem ipsum susyta assahjaj asdgygasguda asuyasgasd asyag asbcbabca asutuquyge acsbcjabca asdygasgd"
+// 	},
+// 	{
+
+// 		type:"Todo List",
+// 		created:new Date(Date.now()),
+// 		edited:new Date(Date.now()),
+// 		priority : "3",
+// 		label :"official",
+// 		title:"To Do List 2",
+// 		content: JSON.stringify([{name:"task 1",completed:false},{name:"task 2",completed:false}])
+// 	}
+// ];
+
+// items.forEach((item)=>{
+// 	connection.query("INSERT INTO items VALUES(NULL,NULL,?,?,?,?,?,?,?)",[item.type,item.label,item.created,item.edited,item.title,item.content,item.priority],(err,result)=>{
+// 	// connection.query("INSERT INTO items VALUES ( NULL" +","+item.type+","+item.label+",NOW(),NOW()," + item.title +","+item.content+","+item.priority+")",(err,result)=>{
+// 		if (err) {
+// 			console.log(err)
+// 		}
+// 		else{
+
+// 		}
+// 	})
+// })
+
 
 module.exports=connection;

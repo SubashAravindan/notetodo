@@ -18,7 +18,7 @@ h1{
 	font-weight: normal;
 }
 
-ul{
+#todolist{
 	list-style: none;
 	margin: 0;
 	padding: 0;
@@ -34,17 +34,17 @@ input{
 	border: 3px solid rgba(0, 0, 0, 0);
 }
 
-li{
+#todolist li{
 	background-color: white;
 	height: 40px;
 	line-height: 40px;
 	color: #666;
 }
-li:nth-child(2n){
+#todolist li:nth-child(2n){
 	background-color: #f7f7f7;
 }
 
-li span{
+#todolist li span{
 	background-color: #e74c3c;
 	height: 40px;
 	margin-right: 20px;
@@ -56,7 +56,7 @@ li span{
 	opacity: 0;
 }
 
-li:hover span{
+#todolist li:hover span{
 	width: 40px;
 	opacity: 1;
 }
@@ -92,6 +92,3 @@ form,button{
 	display: none;
 }
 
-a{
-	margin: 5px auto;
-}

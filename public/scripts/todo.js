@@ -1,8 +1,8 @@
-$("ul").on("click","li",function () {
+$("#todolist").on("click","li",function () {
 	$(this).toggleClass("completed");
 })
 
-$("ul").on("click","span",function(event)  {
+$("#todolist").on("click","span",function(event)  {
 	
 	$(this).parent().fadeOut(500,function(){
 		$(this).remove();
@@ -13,17 +13,17 @@ $("ul").on("click","span",function(event)  {
 $("input[type='text']").keypress(function (event) {
 	if (event.which===13) {
 		var todoText=$(this).val();
-		$("ul").append("<li><span><i class='fas fa-trash'></i></span> "+todoText+"</li>");
+		$("#todolist").append("<li><span><i class='fas fa-trash'></i></span> "+todoText+"</li>");
 		$("input").val("");
 	}
 })
 
 $("#saveBtn").click(()=>{
 	var ob=[];
-	$li=$("li");
+	$li=$("#todolist li");
 
 	$li.each(function(index){
-		var temp={"name":$($("li")[index]).text(),"completed":$($("li")[index]).hasClass("completed")}
+		var temp={"name":$($("#todolist li")[index]).text(),"completed":$($("#todolist li")[index]).hasClass("completed")}
 		console.log(temp);
 		ob.push(temp);
 	})

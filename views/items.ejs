@@ -4,7 +4,7 @@
 
 
 <div class="container">
-	<div class="jumbotron">
+	<div class="jumbotron mt-5">
 		<div class="container">
 			<h1>Your dashboard</h1>
 			<h4 class="text-muted">View all your To-Do lists and notes here</h4>
@@ -30,8 +30,9 @@
 			  	</button>
 			  	<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 			  		<a class="dropdown-item alllabel" href="#">all</a>
-			    	<a class="dropdown-item label" href="#">unofficial</a>
-			    	<a class="dropdown-item label" href="#">official</a>
+			  		<% labels.forEach(label=>{ %>
+			  		<a class="dropdown-item label" href="#"><%=label%></a>
+			  		<% }) %>
 			  	</div>
 			</div>			
 		</div>
